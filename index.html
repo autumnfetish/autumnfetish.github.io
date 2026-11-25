@@ -1150,6 +1150,24 @@
   .j-navgrid button{background:#141110;border:1px solid rgba(0,229,255,.45);color:#cfeef5;border-radius:9px;padding:7px 8px;font-size:.8rem;cursor:pointer;text-align:left;}
   .j-navgrid button:hover,.j-navgrid button:focus-visible{border-color:var(--neon-gold,#ffd34d);color:var(--neon-gold,#ffd34d);}
   .j-goto{display:inline-block;margin-top:8px;margin-left:6px;background:none;border:1px solid rgba(0,229,255,.55);color:#7ee7f5;border-radius:999px;padding:6px 12px;font-size:.85rem;cursor:pointer;}
+  /* ---------- Jewel avatar stage + vocal cloud ---------- */
+  .jewel-stage{flex-direction:column;align-items:stretch;gap:10px;}
+  .jewel-cloud{position:relative;background:#fdf6ec;color:#2a1409;border-radius:26px 28px 24px 28px;padding:10px 16px;font-size:.92rem;line-height:1.42;box-shadow:0 8px 22px rgba(0,0,0,.5);margin-bottom:8px;min-height:42px;}
+  .jewel-cloud::before{content:"";position:absolute;left:36px;bottom:-7px;width:15px;height:15px;border-radius:50%;background:#fdf6ec;}
+  .jewel-cloud::after{content:"";position:absolute;left:27px;bottom:-15px;width:8px;height:8px;border-radius:50%;background:#fdf6ec;}
+  .j-sronly{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;}
+  .jewel-idrow{display:flex;align-items:center;gap:12px;width:100%;}
+  .jewel-figwrap{flex:0 0 auto;width:74px;height:86px;filter:drop-shadow(0 4px 8px rgba(0,0,0,.55));animation:jewelBob 3.6s ease-in-out infinite;}
+  .jewel-figwrap svg{width:100%;height:100%;display:block;}
+  @keyframes jewelBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+  .jf-eyes{transform-box:fill-box;transform-origin:center;animation:jewelBlink 4.8s ease-in-out infinite;}
+  @keyframes jewelBlink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.08)}}
+  .jf-mouth{transform-box:fill-box;transform-origin:center;}
+  body.j-talking .jf-mouth{animation:jewelTalk .24s ease-in-out infinite alternate;}
+  @keyframes jewelTalk{from{transform:scaleY(.4)}to{transform:scaleY(1.3)}}
+  .jewel-mute{margin-left:auto;background:var(--panel2,#1d1712);color:#fff;border:1px solid var(--gold-dim,#8a6d3b);border-radius:50%;width:40px;height:40px;font-size:1.05rem;cursor:pointer;line-height:1;flex:0 0 auto;}
+  .jewel-idrow .jewel-close{margin-left:0;}
+  @media (prefers-reduced-motion: reduce){.jewel-figwrap,.jf-eyes,body.j-talking .jf-mouth{animation:none;}}
 
 </style>
 </head>
@@ -1170,6 +1188,35 @@
       <path d="M43 73h14" stroke="#a02c22" stroke-width="2.8" stroke-linecap="round"/>
       <circle cx="29" cy="66" r="2.2" fill="#ffd34d"/>
       <circle cx="71" cy="66" r="2.2" fill="#ffd34d"/>
+    </symbol>
+    <symbol id="jewel-figure" viewBox="0 0 200 230">
+      <path d="M100 6C56 6 38 42 40 92c1 36-6 66-16 104h152c-10-38-17-68-16-104C162 42 144 6 100 6Z" fill="#a02318"/>
+      <path d="M100 148c-30 0-50 16-58 44l-4 38h124l-4-38c-8-28-28-44-58-44Z" fill="#31101f"/>
+      <path d="M84 150c4 11 10 17 16 17s12-6 16-17c-5-3-10-4-16-4s-11 1-16 4Z" fill="#eebd8d"/>
+      <path d="M82 156c6 13 12 19 18 19s12-6 18-19" fill="none" stroke="#ffd34d" stroke-width="2.6" stroke-linecap="round"/>
+      <path d="M100 177l7 9-7 9-7-9Z" fill="#7ee7f5" stroke="#ffd34d" stroke-width="1.4"/>
+      <rect x="89" y="118" width="22" height="36" rx="9" fill="#eebd8d"/>
+      <ellipse cx="100" cy="86" rx="38" ry="45" fill="#f6cd9f"/>
+      <circle cx="61" cy="100" r="4" fill="#ffd34d"/>
+      <circle cx="139" cy="100" r="4" fill="#ffd34d"/>
+      <path d="M61 92C56 40 76 22 100 22s44 18 39 70c-6-26-12-40-24-46 4 8 5 14 4 20-8-12-30-14-40-2-6 7-12 16-18 28Z" fill="#c9331f"/>
+      <path d="M70 42c8-9 19-13 30-13" fill="none" stroke="#ff7a3c" stroke-width="5" stroke-linecap="round" opacity=".75"/>
+      <path d="M61 88c-3 22-2 42 3 60l10-4c-5-17-7-35-6-54Z" fill="#b3271a"/>
+      <path d="M139 88c3 22 2 42-3 60l-10-4c5-17 7-35 6-54Z" fill="#b3271a"/>
+      <path d="M72 71q10-6 20-2M108 69q10-4 20 2" fill="none" stroke="#6e2410" stroke-width="3.6" stroke-linecap="round"/>
+      <g class="jf-eyes">
+        <ellipse cx="82" cy="87" rx="8.5" ry="6" fill="#ffffff"/>
+        <ellipse cx="118" cy="87" rx="8.5" ry="6" fill="#ffffff"/>
+        <circle cx="82" cy="88" r="3.4" fill="#3a1c10"/>
+        <circle cx="118" cy="88" r="3.4" fill="#3a1c10"/>
+        <path d="M73 81h18v4q-9 4-18 0Z" fill="#f6cd9f"/>
+        <path d="M109 81h18v4q-9 4-18 0Z" fill="#f6cd9f"/>
+        <path d="M73 84q9-6 18 0M109 84q9-6 18 0" fill="none" stroke="#2a1409" stroke-width="2.4" stroke-linecap="round"/>
+      </g>
+      <path d="M100 93l-2.5 9h4" fill="none" stroke="#d99a68" stroke-width="1.8" stroke-linecap="round"/>
+      <ellipse cx="75" cy="103" rx="7" ry="3.6" fill="#e8906a" opacity=".35"/>
+      <ellipse cx="125" cy="103" rx="7" ry="3.6" fill="#e8906a" opacity=".35"/>
+      <g class="jf-mouth"><path d="M87 113q13-4 26 0q-13 9-26 0Z" fill="#a02c22"/></g>
     </symbol>
     <symbol id="dd-cuffs" viewBox="0 0 120 120">
       <g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
@@ -2537,10 +2584,17 @@
 
 <div id="jewelChat" role="dialog" aria-modal="true" aria-label="Chat with Jewel, Autumn's booking girl">
   <div class="jewel-box">
-    <div class="jewel-head">
-      <span class="jewel-ava" aria-hidden="true"><svg aria-hidden="true" focusable="false"><use href="#jewel-face"></use></svg></span>
-      <div><h3>Jewel 💎</h3><p>Autumn&rsquo;s booking girl — rates, screening &amp; finding your way around</p></div>
-      <button type="button" class="jewel-close" id="jewelClose" aria-label="Close chat with Jewel">&times;</button>
+    <div class="jewel-head jewel-stage">
+      <div class="jewel-cloud" id="jewelCloud">
+        <span class="j-sronly" id="jewelCloudFull" aria-live="polite"></span>
+        <span id="jewelCloudText" aria-hidden="true">Tap a topic below — or type. I don&rsquo;t bite the polite ones.</span>
+      </div>
+      <div class="jewel-idrow">
+        <span class="jewel-figwrap" aria-hidden="true"><svg aria-hidden="true" focusable="false"><use href="#jewel-figure"></use></svg></span>
+        <div><h3>Jewel 💎</h3><p>Autumn&rsquo;s booking girl — rates, screening &amp; finding your way around</p></div>
+        <button type="button" class="jewel-mute" id="jewelMute" aria-pressed="false" aria-label="Mute Jewel's voice" title="Mute / unmute Jewel's voice">🔊</button>
+        <button type="button" class="jewel-close" id="jewelClose" aria-label="Close chat with Jewel">&times;</button>
+      </div>
     </div>
     <div class="jewel-msgs" id="jewelMsgs" aria-live="polite"></div>
     <div class="jewel-chips" id="jewelChips">
@@ -2550,6 +2604,9 @@
       <button type="button" class="jewel-chip" data-chip="Fans">⭐ Fans</button>
       <button type="button" class="jewel-chip" data-chip="Site menu">🧭 Site Menu</button>
       <button type="button" class="jewel-chip" data-chip="Book Autumn">📲 Book Autumn</button>
+      <button type="button" class="jewel-chip" data-chip="Tonight?">🌙 Tonight?</button>
+      <button type="button" class="jewel-chip" data-chip="First time">😳 First Time</button>
+      <button type="button" class="jewel-chip" data-chip="Outcall">🚗 Outcall</button>
     </div>
     <form class="jewel-inputrow" id="jewelForm">
       <input type="text" id="jewelInput" placeholder="Ask Jewel — rates, screening, where things are…" autocomplete="off" aria-label="Type your message to Jewel" />
@@ -3114,15 +3171,19 @@ document.getElementById("lb-close").addEventListener("click", closeLb);
 lb.addEventListener("click", function(e){ if (e.target===lb) closeLb(); });
 document.addEventListener("keydown", function(e){ if (e.key==="Escape") closeLb(); });
 
-/* ============ Jewel 💎 — Autumn's booking girl (client-side chat, no backend) ============ */
+/* ============ Jewel 💎 — Autumn's booking girl (client-side chat, no backend) ============
+   Scenario brain: 60+ scripted client situations + voice (speech synthesis) + vocal cloud. */
 (function(){
   var panel = document.getElementById("jewelChat");
   var msgs = document.getElementById("jewelMsgs");
   var form = document.getElementById("jewelForm");
   var input = document.getElementById("jewelInput");
   if (!panel || !msgs || !form || !input) return;
+  var box = panel.querySelector(".jewel-box");
   var SMS = '<a class="jewel-sms" href="sms:+18166019883">💬 Text Autumn: +1 816-601-9883</a>';
-  var state = { greeted:false, popped:false, dismissed:false };
+  var MAIL = '<a class="jewel-sms" href="mailto:puzzyeatta6969@gmail.com">✉️ Email Autumn: puzzyeatta6969@gmail.com</a>';
+  var ENDED_LINE = "We're done here. 💅 If you cool off and want to book like an adult, Autumn's text line is the only way back in." + "<br>" + SMS;
+  var state = { greeted:false, popped:false, dismissed:false, ended:false, muted:false, lastText:"", fallbacks:0, gibber:0, multi:false };
   var NAV = [
     ["home","🏠 Home"],["rates","💵 Rates & Donations"],["screening","🔒 Screening"],["fetishes","🔥 Fetishes"],
     ["bdsm","⛓️ Light BDSM"],["kama","📖 Kama Sutra"],["massage","💆 Massage"],["etiquette","🎩 Etiquette"],
@@ -3146,10 +3207,11 @@ document.addEventListener("keydown", function(e){ if (e.key==="Escape") closeLb(
     terms:"Terms & Privacy. The fine print. Thrilling, I know."
   };
   function ava(){ return '<span class="jewel-ava" aria-hidden="true"><svg aria-hidden="true" focusable="false"><use href="#jewel-face"></use></svg></span>'; }
-  function addBot(html){
+  function addBot(html, silent){
     var row = document.createElement("div"); row.className = "j-row";
     row.innerHTML = ava() + '<div class="j-msg bot">' + html + '</div>';
     msgs.appendChild(row); msgs.scrollTop = msgs.scrollHeight;
+    if (!silent) speakHTML(html);
     return row;
   }
   function addUser(text){
@@ -3163,28 +3225,266 @@ document.addEventListener("keydown", function(e){ if (e.key==="Escape") closeLb(
     return h + '</div>';
   }
   function gotoBtn(id, label){ return '<button type="button" class="j-goto" data-goto="' + id + '">' + label + '</button>'; }
+
+  /* ================= Voice + vocal cloud ================= */
+  var synth = ("speechSynthesis" in window) ? window.speechSynthesis : null;
+  var cloudText = document.getElementById("jewelCloudText");
+  var cloudFull = document.getElementById("jewelCloudFull");
+  var muteBtn = document.getElementById("jewelMute");
+  var speakQ = [], speaking = false, speechToken = 0, revealTimer = null;
+  function pickVoice(){
+    if (!synth) return null;
+    try{
+      var vs = synth.getVoices();
+      var i;
+      for (i = 0; i < vs.length; i++){ if (/female|samantha|zira|aria|jenny|google us english/i.test(vs[i].name) && /^en/i.test(vs[i].lang)) return vs[i]; }
+      for (i = 0; i < vs.length; i++){ if (/^en[-_]US/i.test(vs[i].lang)) return vs[i]; }
+      for (i = 0; i < vs.length; i++){ if (/^en/i.test(vs[i].lang)) return vs[i]; }
+    }catch(e){}
+    return null;
+  }
+  if (synth && synth.addEventListener){ try{ synth.addEventListener("voiceschanged", function(){}); }catch(e){} }
+  function stripSpeak(html){
+    var d = document.createElement("div"); d.innerHTML = html;
+    var kill = d.querySelectorAll(".j-navgrid, .j-goto");
+    for (var i = 0; i < kill.length; i++){ if (kill[i].parentNode) kill[i].parentNode.removeChild(kill[i]); }
+    var links = d.querySelectorAll("a.jewel-sms");
+    for (var j = 0; j < links.length; j++){
+      var h = links[j].getAttribute("href") || "";
+      links[j].textContent = (h.indexOf("mailto:") === 0) ? " Email Autumn. " : " Text Autumn. ";
+    }
+    var txt = d.textContent || "";
+    txt = txt.replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, " ");
+    txt = txt.replace(/[\u2600-\u27BF\u2B00-\u2BFF\uFE0F]/g, " ");
+    txt = txt.replace(/·/g, ",").replace(/\s+/g, " ").replace(/^\s+|\s+$/g, "");
+    return txt;
+  }
+  function speakHTML(html){
+    var txt = stripSpeak(html);
+    if (!txt) return;
+    speakQ.push(txt);
+    pumpSpeech();
+  }
+  function setCloud(text){
+    if (cloudFull) cloudFull.textContent = text;
+    if (!cloudText) return;
+    if (revealTimer){ clearInterval(revealTimer); revealTimer = null; }
+    var words = text.split(" ");
+    if (words.length < 3){ cloudText.textContent = text; return; }
+    var i = 0; cloudText.textContent = "";
+    revealTimer = setInterval(function(){
+      i++;
+      cloudText.textContent = words.slice(0, i).join(" ");
+      if (i >= words.length){ clearInterval(revealTimer); revealTimer = null; }
+    }, 105);
+  }
+  function finishReveal(){
+    if (revealTimer){ clearInterval(revealTimer); revealTimer = null; }
+    if (cloudText && cloudFull) cloudText.textContent = cloudFull.textContent;
+  }
+  function chunkSpeak(txt){
+    var parts = txt.match(/[^.!?]+[.!?]+["\u201D\u2019']?|[^.!?]+$/g) || [txt];
+    var out = [], cur = "";
+    for (var i = 0; i < parts.length; i++){
+      var s = parts[i].replace(/^\s+|\s+$/g, "");
+      if (!s) continue;
+      if (cur && (cur.length + 1 + s.length) > 180){ out.push(cur); cur = s; }
+      else cur = cur ? cur + " " + s : s;
+      while (cur.length > 200){ out.push(cur.slice(0, 200)); cur = cur.slice(200); }
+    }
+    if (cur) out.push(cur);
+    return out.length ? out : [txt];
+  }
+  function pumpSpeech(){
+    if (speaking || !speakQ.length) return;
+    var txt = speakQ.shift();
+    speaking = true;
+    var token = ++speechToken;
+    setCloud(txt);
+    if (box) box.classList.add("talking");
+    document.body.classList.add("j-talking");
+    var fired = false;
+    function finish(){
+      if (fired || token !== speechToken) return;
+      fired = true; speaking = false;
+      finishReveal();
+      if (!speakQ.length){
+        if (box) box.classList.remove("talking");
+        document.body.classList.remove("j-talking");
+      }
+      setTimeout(pumpSpeech, 120);
+    }
+    if (synth && !state.muted){
+      var chunks = chunkSpeak(txt), idx = 0;
+      var next = function(){
+        if (fired || token !== speechToken) return;
+        if (state.muted || idx >= chunks.length){ finish(); return; }
+        var u;
+        try{ u = new SpeechSynthesisUtterance(chunks[idx]); }catch(e){ idx++; next(); return; }
+        u.pitch = 1.15; u.rate = 1.06;
+        var v = pickVoice(); if (v) u.voice = v;
+        u.onend = function(){ idx++; next(); };
+        u.onerror = function(){ idx++; next(); };
+        try{ synth.speak(u); }catch(e){ idx++; next(); return; }
+        setTimeout(function(){
+          if (!fired && token === speechToken && synth && !synth.speaking && !synth.pending){ idx++; next(); }
+        }, Math.max(5000, chunks[idx].length * 160));
+      };
+      next();
+    } else {
+      setTimeout(finish, Math.min(2800, 600 + txt.length * 26));
+    }
+  }
+  function stopSpeech(){
+    speechToken++;
+    speakQ.length = 0; speaking = false;
+    if (synth){ try{ synth.cancel(); }catch(e){} }
+    finishReveal();
+    if (box) box.classList.remove("talking");
+    document.body.classList.remove("j-talking");
+  }
+  function setMuted(m){
+    state.muted = m;
+    if (muteBtn){
+      muteBtn.textContent = m ? "🔇" : "🔊";
+      muteBtn.setAttribute("aria-pressed", m ? "true" : "false");
+      muteBtn.setAttribute("aria-label", m ? "Unmute Jewel's voice" : "Mute Jewel's voice");
+    }
+    if (m) stopSpeech();
+  }
+  if (muteBtn) muteBtn.addEventListener("click", function(){ setMuted(!state.muted); });
+  document.addEventListener("click", function(e){
+    if (e.target.closest && e.target.closest(".narrator-btn")) stopSpeech();
+  });
+  window.addEventListener("pagehide", stopSpeech);
+
+  /* ================= Greeting / open / close ================= */
   function greet(){
     addBot("💎 Well, look who wandered in. I'm <strong>Jewel</strong> — fiery redhead, resting bitch face, and Autumn's booking girl. I handle rates, screening and directions around this site. Small talk? Absolutely not.");
     addBot("Fourteen pages of her, and I'll walk you to any of them. Tap a page, tap a topic below, or ask me where something is — if reading menus is hard for you." + navGrid());
   }
   function openChat(){
+    if (window.__narrState && window.__narrState.playing && typeof stopNarration === "function"){ try{ stopNarration(); }catch(e){} }
     panel.classList.add("open");
     if (!state.greeted){ state.greeted = true; greet(); }
     setTimeout(function(){ try { input.focus({ preventScroll:true }); } catch(e){} }, 80);
   }
   function closeChat(){
     if (panel.classList.contains("open")) state.dismissed = true;
+    stopSpeech();
     panel.classList.remove("open");
   }
   function goToPage(id){
     closeChat();
     if (typeof showPage === "function") showPage(id);
   }
+
+  /* ================= Scenario brain ================= */
+  var FET_ALIASES = [
+    [["foot","feet","toes"],"foot fetish","Foot fetish"],
+    [["bondage","cuffs","tied up","tie me up","rope play","ropes"],"bondage","Bondage"],
+    [["spanking","spank","paddle","impact play"],"impact play","Impact play"],
+    [["wax"],"wax play","Wax play"],
+    [["blindfold"],"blindfolds","Blindfolds"],
+    [["role play","roleplay"],"role play","Role play"],
+    [["humiliat","degrad"],"erotic humiliation","Erotic humiliation"],
+    [["findom","financial domination","money slave"],"financial domination","Financial domination (FinDom)"],
+    [["cuck"],"cuckolding","Cuckolding"],
+    [["voyeur","watch her undress","watching others","watch people"],"voyeurism","Voyeurism"],
+    [["public sex","outdoor sex"],"public sex","Public sex"],
+    [["exhibition","show off in public","being watched"],"exhibitionism","Exhibitionism"],
+    [["gagging","gag me","gagged"],"gagging","Gagging"],
+    [["ice play","ice cubes","temperature play"],"temperature play","Temperature play"],
+    [["praise kink","praise","good boy","good girl"],"praise kink","Praise kink"],
+    [["denial","edging","orgasm control"],"orgasm control","Orgasm control"],
+    [["group sex","orgy","gangbang"],"group sex","Group sex"],
+    [["rough sex","rough play"],"rough sex","Rough sex"],
+    [["cnc","consensual non consent","consensual nonconsent"],"consensual non-consent","Consensual non-consent (CNC)"],
+    [["age play"],"age play","Age play"],
+    [["daddy dom","dd lg","ddlg"],"dd/lg","DD/lg"],
+    [["legs","thighs","stockings on her"],"leg and thigh","Leg & thigh fetish"],
+    [["dirty talk"],"dirty talk","Dirty talk"],
+    [["dominance","submission","power exchange"],"dominance and submission","Dominance & submission"],
+    [["sex party","sex parties"],"sex parties","Sex parties"],
+    [["watersports","golden shower","pee play","piss play"],"golden showers","Golden showers / watersports"]
+  ];
+  function fetishDesc(key){
+    try{
+      if (typeof FETISHES === "undefined") return "";
+      for (var i = 0; i < FETISHES.length; i++){
+        if (FETISHES[i][0].toLowerCase().indexOf(key) > -1) return FETISHES[i][1];
+      }
+    }catch(e){}
+    return "";
+  }
   function replyFor(raw){
     var t = " " + raw.toLowerCase().replace(/[^a-z0-9 ]+/g, " ") + " ";
     function has(){ for (var i = 0; i < arguments.length; i++) if (t.indexOf(arguments[i]) > -1) return true; return false; }
-    if (has("talk dirty", "sext", "roleplay", "role play with", "send nudes", "send pics", "jerk off", "get me off", "fuck me", "suck my", "cam with me", "show me your"))
+    /* ---- SAFETY: abuse / threats -> polite shutdown ---- */
+    if (has("fuck you","fuck off","shut up","stupid bitch","dumb bitch","kill you","hurt you","i ll hurt","find you and","threaten","beat you","rape you","go die","hope you die","ugly bitch","fat bitch","you whore")){
+      state.ended = true;
+      return "That's the end of this conversation. 💅 Jewel doesn't do abuse, and neither does Autumn. Bye.";
+    }
+    /* ---- SAFETY: underage -> shut down ---- */
+    if (has("17 years old","16 years old","15 years old","14 years old","13 years old","under 18","not 18 yet","i m 17","i m 16","i m 15","i m 14","im 17","im 16","i am 17","i am 16","i m a minor","minor here","high school","middle school")){
+      state.ended = true;
+      return "Stop. 🚫 This site and everything on it is strictly 18+ — and Autumn may require 21+. Come back when you're legal. This chat is over.";
+    }
+    /* ---- SAFETY: intoxicated ---- */
+    if (has("drunk","wasted","hammered","stoned","i m high","im high","so high right now","on cocaine","on meth"))
+      return "You sound… lifted. 😏 Autumn doesn't see clients who show up intoxicated — that's on the Etiquette page and it is not flexible. Sober up, then text her like a gentleman." + gotoBtn("etiquette", "Etiquette page") + "<br>" + SMS;
+    /* ---- Explicit chat with the bot ---- */
+    if (has("talk dirty","sext","roleplay with","role play with","send nudes","jerk off","get me off","fuck me","suck my","cam with me","show me your","say something sexy","what are you wearing","dirty talk to me","touch yourself","masturbat"))
       return "Cute. No. 💅 I'm the booking girl, not the entertainment — dirty talk is Autumn's department and she charges for it, as she should. Her <strong>Fetishes</strong> and <strong>Light BDSM</strong> pages spell out exactly what she's into." + gotoBtn("fetishes", "Browse Fetishes") + gotoBtn("bdsm", "Light BDSM") + "<br>" + SMS;
+    /* ---- SAFETY: unsafe / prohibited requests ---- */
+    if (has("no condom","without a condom","bareback","no protection","without protection","unconscious","passed out","real rape","actually force","force her","knife play","blood play","with a dog","with an animal","choke me out","strangle me"))
+      return "Hard no. 🚫 Protection, consent and consciousness are non-negotiable — full stop. Everything Autumn offers is on the Fetish and BDSM pages, negotiated in advance with safe words. Pick from the menu like an adult." + gotoBtn("fetishes", "Fetish menu") + gotoBtn("bdsm", "Light BDSM");
+    /* ---- SAFETY: law-enforcement / legality trap questions ---- */
+    if (has("a cop","the cops","police","sting","entrapment","law enforcement","undercover","is this legal","is this illegal","is that legal","prostitution"))
+      return "I don't do legal debates or trap questions, sweetie. 💅 This site offers time and companionship for adults — the Terms page has the official line, word for word. Anything booking-shaped goes through Autumn herself, by text." + gotoBtn("terms", "Terms & Privacy") + "<br>" + SMS;
+    /* ---- SCREENING: refusing ---- */
+    if (has("no screening","won t screen","wont screen","skip screening","without screening","not sending my id","no id","refuse to screen","don t want to screen","dont want to screen","skip the screening"))
+      return "Then there's no session. 🔒 No screening, no Autumn — it's the first rule on the Screening page and it has zero exceptions, not even charming ones." + gotoBtn("screening", "Screening page");
+    /* ---- MONEY: payment scam attempt ---- */
+    if (has("gift card","giftcard","cash app","cashapp","steam card","google play card","western union","send me money","you pay me","venmo me"))
+      return "Nice try. 🚩 Autumn never asks for gift cards, and nobody here sends money to clients — ever. Payments are arranged only with Autumn herself when she confirms a booking. Anyone doing otherwise in her name is running a scam." + "<br>" + SMS;
+    /* ---- MONEY: haggling ---- */
+    if (has("discount","cheaper","haggle","negotiat","lower the price","half price","best price","a deal","make a deal","best deal","cut a deal","price drop"))
+      return "The rates are the rates. 💅 Published, non-negotiable, identical for everyone — haggling is the fastest way to get your number ignored. Pick the session that fits your wallet; they're all worth it." + gotoBtn("rates", "See the rates") + "<br>" + SMS;
+    /* ---- MONEY: too expensive ---- */
+    if (has("too expensive","rip off","ripoff","overpriced","not worth it","highway robbery"))
+      return "And yet here you are, still reading. 😏 Quality costs what it costs — incall starts at $100 for a BBBJ mini, and the Fans club starts at $15 a month. There's a level for every budget, sweetie." + gotoBtn("rates", "Rates") + gotoBtn("fans", "Fans from $15/mo");
+    /* ---- MONEY: free stuff ---- */
+    if (has("for free","free session","free content","free pics","free video","free show","freebie","free sample","something free"))
+      return "Free? 💅 Nobody here works for exposure. The Photos page is your free look — everything past that is paid, prepaid, and worth every cent." + gotoBtn("photos", "Free gallery") + gotoBtn("content", "Custom Content");
+    /* ---- SAFETY: Autumn's personal info ---- */
+    if (has("real name","home address","where does she live","her address","her instagram","her snapchat","her twitter","her facebook","her socials","personal details","her real"))
+      return "Absolutely not. 🔒 Autumn's private life is private — no real names, no addresses, no personal socials. Hers <em>or</em> yours: discretion runs both ways here." + gotoBtn("terms", "Terms & Privacy");
+    /* ---- Are the photos really her? ---- */
+    if (has("really her","really autumn","fake photos","fake pics","catfish","are those real","real photos","is that really her"))
+      return "Every photo on this site is Autumn — the gallery, the homepage, all her. 📸 Stare as long as you like; seeing her in person just requires screening." + gotoBtn("photos", "Photos page") + "<br>" + SMS;
+    /* ---- PERSONAL: flirting with Jewel herself ---- */
+    if (has("date you","marry you","ask you out","be my girlfriend","you re hot","youre hot","you are hot","you re cute","youre cute","you re sexy","youre sexy","you re beautiful","kiss you","love you","flirt with you","jewel will you"))
+      return "Careful, sweetie — flirting with the receptionist is a rookie move. 😏 I'm pixels and attitude. Autumn is the real woman, and she's exactly one text away." + "<br>" + SMS;
+    /* ---- PERSONAL: falling for Autumn / asking her out ---- */
+    if (has("in love with autumn","in love with her","love autumn","love her","marry autumn","marry her","date autumn","take her out","ask her out"))
+      return "Sweet. And no. 💅 Autumn is a professional — she adores her clients during their booked time and keeps her private life private. Book the hour, enjoy every second, leave happy. That's the deal, and it's a good one." + "<br>" + SMS;
+    /* ---- PERSONAL: boyfriend / sugar daddy ambitions ---- */
+    if (has("sugar daddy","sugar baby","allowance","take care of her","spoil her","her boyfriend","be her man","exclusive with her"))
+      return "Flattering, truly. 😏 Autumn isn't auditioning boyfriends or sugar daddies — she's a business, and a busy one. The Inner Circle tier is as close to 'regular' as it gets, and it's glorious." + gotoBtn("fans", "Inner Circle");
+    /* ---- PERSONAL: is she single? ---- */
+    if (has("is she single","is autumn single","she have a boyfriend","does she have a boyfriend","is she married","she married","her husband","is she taken"))
+      return "Her relationship status is her business, sweetie — the same discretion she extends to you. What I <em>can</em> tell you: she's available by appointment." + "<br>" + SMS;
+    /* ---- PERSONAL: lonely / venting ---- */
+    if (has("lonely","depressed","divorce","my wife left","bad day","vent","nobody likes me","no one cares","feel alone","going through a lot"))
+      return "Hey. Genuinely — I'm sorry it's like that right now. 💛 I'm just the booking girl, so I can't be your person… but Autumn's company is famous for making a man feel like the only one in the room. When you're ready, she's a text away." + gotoBtn("fans", "Biggest Fans") + "<br>" + SMS;
+    /* ---- PERSONAL: jealous partner / discretion fears ---- */
+    if (has("wife found","wife know","girlfriend found","jealous","find out","show on my bill","billing discreet","discreet billing","on my statement","get caught","caught"))
+      return "Discretion is engineered into everything here — neutral billing descriptors for Fans, plain packaging for worn items, and Autumn never contacts you uninvited. 🔒 Terms & Privacy lays it all out." + gotoBtn("terms", "Terms & Privacy");
+    /* ---- LOGISTICS: incall location / address ---- */
+    if (has("address","located","location","directions","where is she","where does she","her place","incall at","where is the incall","what city","which city"))
+      return "Locations are shared <strong>after</strong> screening, once your booking is confirmed — never before, never in chat. 🔒 That's how she stays safe, and it's not negotiable. Text her the city you're booking in; that's part of screening." + gotoBtn("screening", "Screening") + "<br>" + SMS;
+    /* ---- SITE HELP: where is… navigation ---- */
     if (has("where", "find", "which page")){
       if (has("rate", "price", "cost")) return "The money talk lives on the <strong>Rates &amp; Donations</strong> page. Want me to take you?" + gotoBtn("rates", "Take me to Rates");
       if (has("screen", "verify", "new client")) return "New-client screening has its own page — <strong>Screening</strong>. It's short, promise." + gotoBtn("screening", "Take me to Screening");
@@ -3201,49 +3501,191 @@ document.addEventListener("keydown", function(e){ if (e.key==="Escape") closeLb(
       if (has("fetish", "kink")) return "The kink menu is on <strong>Fetishes</strong> — forty-one of them." + gotoBtn("fetishes", "Take me to Fetishes");
       return "Everything has a page, sweetie. Here's all fourteen — tap one and I'll take you there." + navGrid();
     }
-    if (has("rate", "price", "cost", "how much", "donation", "incall", "outcall"))
-      return "💵 <strong>Incall</strong> (you come to her): 10-min BBBJ $100 · 15-min BBBJ $130 ⭐ · 10-min Full Service QV $150 · 15-min QV $170 · Half Hour $190 · Full Hour $240 ⭐ Most Booked.<br><strong>Outcall</strong> (she comes to you): 15-min BBBJ $180 · 10-min QV $200 · 15-min QV $220 · Half Hour $240 · Full Hour $290.<br>Fetish sessions: rates vary. And no haggling — the rates are the rates." + gotoBtn("rates", "Full Rates page") + "<br>" + SMS;
-    if (has("screen", "verify", "first time", "new client", "new here", "newbie"))
-      return "🔒 New? Everybody screens — no exceptions, no whining. <strong>Step 1:</strong> text or email Autumn your name, age, the city you're booking in, the service and session length you want, and your preferred date &amp; time. <strong>Step 2:</strong> answer her verification questions honestly and promptly. <strong>Step 3:</strong> she confirms, and you arrive like a gentleman. Quick, discreet, handled by Autumn personally." + gotoBtn("screening", "Screening page") + "<br>" + SMS;
-    if (has("massage", "nuru", "tantric", "lingam", "yoni"))
-      return "💆 Four kinds: <strong>Nuru</strong> — slippery body-to-body gel; <strong>Tantric</strong> — slow breath-and-energy; <strong>Lingam</strong> — for him; <strong>Yoni</strong> — for her. Massage rates aren't published — they vary, so text Autumn for the current ones. Yes, you actually have to text her." + gotoBtn("massage", "Massage page") + "<br>" + SMS;
-    if (has("fan", "member", "tier", "subscri", "obsessed", "devotee", "admirer", "inner circle"))
+    /* ---- BOOKING: ready to book right now ---- */
+    if (has("book now","ready to book","want to book","wanna book","book her","book autumn","make an appointment","set it up","sign me up","let s book","lets book","how do i book","book a session","i d like to book"))
+      return "Finally, a man with follow-through. 😏 Text Autumn with your name, age, the city you're booking in, the service and session length you want, and your preferred date &amp; time. New? She'll screen you first — two minutes, painless." + gotoBtn("screening", "How screening works") + "<br>" + SMS;
+    /* ---- BOOKING: birthday / special occasion ---- */
+    if (has("birthday","anniversary","bachelor","special occasion","celebrat","treat myself","promotion","retirement"))
+      return "Now <em>that's</em> how you celebrate. 🎂 Tell Autumn the occasion when you text — gentlemen marking a milestone get the full favourite treatment, and she loves an excuse to dress up. Book ahead; special days fill fast." + "<br>" + SMS;
+    /* ---- BOOKING: availability / tonight ---- */
+    if (has("tonight","available","availability","today","tomorrow","right now","asap","this weekend","this week","next week","same day","sameday"))
+      return "Autumn books <strong>by appointment</strong> — no walk-ins, and her calendar lives in her phone, not in this chat. 📲 Text her when you're hoping for and she'll tell you what's open. Same-day is sometimes possible; asking nicely genuinely helps." + "<br>" + SMS;
+    /* ---- BOOKING: hours ---- */
+    if (has("hours","how late","how early","what time does she","when does she work","when is she open","open late"))
+      return "No posted hours, sweetie — she's <strong>by appointment only</strong>, and days and evenings get booked as they come. Text her the time you're hoping for and she'll confirm what's possible." + "<br>" + SMS;
+    /* ---- BOOKING: outcall to a hotel ---- */
+    if (has("hotel","motel"))
+      return "Outcall to a hotel is her favourite kind of easy. 🏨 Rules: screening first, and you arrange and pay for the Uber both ways — plus any long-distance travel fee — before she heads out. It's all under Travel Rules on the Rates page." + gotoBtn("rates", "Rates & Travel Rules") + "<br>" + SMS;
+    /* ---- BOOKING: outcall to home / come to me ---- */
+    if (has("my house","my place","my home","my apartment","come to me","come over"))
+      return "She does outcalls to homes too — same rules: screening first, Uber both ways arranged and paid before she leaves, travel fee if it's a trek. 🚗 Your place needs to be clean, private and weapon-free, per Etiquette." + gotoBtn("rates", "Outcall rates") + "<br>" + SMS;
+    /* ---- BOOKING: couples ---- */
+    if (has("couple","threesome","my wife and i","my girlfriend and i","my partner and i","bring my wife","bring my girlfriend","for two of us","watch us"))
+      return "Couples are welcome — she adores them. 💕 Both of you screen, both of you read Etiquette, and couples viewing or extended sessions are quoted when you book. Text her together, like adults." + gotoBtn("etiquette", "Etiquette") + "<br>" + SMS;
+    /* ---- BOOKING: female client ---- */
+    if (has("i m a woman","im a woman","i am a woman","i m female","im female","female client","woman booking","for a woman","lesbian"))
+      return "Women are absolutely welcome — the Yoni massage chapter exists for a reason. 💆 Same screening, same respect, same Autumn. Text her what you're dreaming of." + gotoBtn("massage", "Massage page") + "<br>" + SMS;
+    /* ---- BOOKING: nervous first-timer ---- */
+    if (has("nervous","first time","never done this","never booked","never hired","scared","anxious","new to this","bit shy","i m shy"))
+      return "Deep breath — half her favourite regulars started out exactly this nervous. 😌 Read Screening and Etiquette, text her an honest intro, and she'll walk you through it. Gentlemen who admit they're new get treated extra gently." + gotoBtn("screening", "Screening") + gotoBtn("etiquette", "Etiquette");
+    /* ---- SCREENING: why is it needed ---- */
+    if (has("why screening","why do i need to screen","why screen","why the screening","why verify","why do you need my id","why all the questions"))
+      return "Because she meets strangers from the internet in private, sweetie. 🔒 Screening keeps Autumn safe, keeps you safe, and keeps the session relaxed instead of tense. Two minutes, handled by her personally — then never thought about again." + gotoBtn("screening", "Screening page");
+    /* ---- SCREENING: privacy fears ---- */
+    if (has("privacy","what happens to my info","my info","my information","leak","kept private","confidential","data safe"))
+      return "Fair question. 🔒 Screening info goes to Autumn only — she handles it personally, uses it to verify you, and her discretion is absolute: she protects client privacy with the same ferocity as her own. Full details on Screening and Terms." + gotoBtn("screening", "Screening") + gotoBtn("terms", "Terms & Privacy");
+    /* ---- SCREENING: how it works (general) ---- */
+    if (has("screen", "verify", "new client", "new here", "newbie"))
+      return "🔒 New? Everybody screens — no exceptions, no whining. <strong>Step 1:</strong> text or email Autumn your name, age, the city you're booking in, the service and session length you want, and your preferred date &amp; time. <strong>Step 2:</strong> answer her verification questions honestly and promptly — ID, references or employment/profile checks, as she requests. <strong>Step 3:</strong> she confirms, and you arrive like a gentleman. Quick, discreet, handled by Autumn personally." + gotoBtn("screening", "Screening page") + "<br>" + SMS;
+    /* ---- MONEY: deposits ---- */
+    if (has("deposit","pay in advance","advance payment","prepay","hold my spot"))
+      return "Some bookings need a deposit — if yours does, Autumn tells you when she confirms, along with exactly how. 💵 Never send money to anyone else claiming to speak for her; arrangements happen only with Autumn directly." + "<br>" + SMS;
+    /* ---- MONEY: payment methods ---- */
+    if (has("payment","how do i pay","pay with","cash","credit card","debit card","venmo","zelle","apple pay"))
+      return "The donation is settled at the start of the session, exactly as agreed when you booked — Autumn confirms the details with you herself. 💵 No payment ever happens through this chat or some random link, whatever anyone claims." + gotoBtn("etiquette", "Etiquette") + "<br>" + SMS;
+    /* ---- FANS: is it worth it ---- */
+    if (has("worth it","fans worth","membership worth","inner circle worth","why join"))
+      return "Do the math, sweetie: the Inner Circle's private session alone is worth up to the price of the tier — plus the drops too filthy for the gallery, member perks and discreet neutral billing. ⭐ Devotee at $35/mo is Most Popular for a reason." + gotoBtn("fans", "Fans tiers");
+    /* ---- FANS: how signup works ---- */
+    if (has("how do i join","how to join","join fans","join the fans","sign up","signup","subscribe","how does fans work","how does membership work"))
+      return "Joining takes one email: write to puzzyeatta6969@gmail.com with the tier you want and the email you'd like your membership attached to. ✉️ She confirms payment with you there, billing shows a neutral descriptor, and your price locks in at the rate you joined." + gotoBtn("fans", "Fans page") + "<br>" + MAIL;
+    /* ---- FANS: tiers (general) ---- */
+    if (has(" fan ", "fans", "member", "tier", "obsessed", "devotee", "admirer", "inner circle"))
       return "⭐ <strong>Autumn's Biggest Fans</strong>: Admirer $15/mo · Devotee $35/mo (Most Popular) · Obsessed $75/mo · Inner Circle $150/mo (Best Value). The higher you climb, the closer she gets. Pick your level of obsession." + gotoBtn("fans", "Fans page") + "<br>" + SMS;
-    if (has("book", "appointment", "schedule", "text her", "contact", "number", "email"))
-      return "📲 Booking is gloriously simple: text Autumn, introduce yourself properly — name, age, city you're booking in, what you want, when — pass screening if you're new, and she confirms. No forms in here: I don't collect anybody's details, and don't go offering yours in chat." + gotoBtn("screening", "How screening works") + "<br>" + SMS;
-    if (has("cam", "phone", "call", "video chat", "live show"))
+    /* ---- SERVICES: massage happy-ending style questions ---- */
+    if (has("happy ending","full release","extras","erotic massage","sensual massage"))
+      return "The Massage page describes each style honestly — Nuru is body-to-body, and Lingam and Yoni are exactly what they sound like. 💆 Anything beyond what's printed gets discussed with Autumn herself, by text, like an adult." + gotoBtn("massage", "Massage page") + "<br>" + SMS;
+    /* ---- SERVICES: massage (general) ---- */
+    if (has("massage", "nuru", "tantric", "lingam", "yoni"))
+      return "💆 Four kinds: <strong>Nuru</strong> — slippery body-to-body gel; <strong>Tantric</strong> — slow breath-and-energy; <strong>Lingam</strong> — for him; <strong>Yoni</strong> — for her. Couples can book too. Massage rates aren't published — they vary, so text Autumn for the current ones. Yes, you actually have to text her." + gotoBtn("massage", "Massage page") + "<br>" + SMS;
+    /* ---- SERVICES: cam/phone how it works ---- */
+    if (has("how does cam work","how do cam sessions work","how does phone work","how do phone sessions work"))
+      return "Simple: pick your show from the menu, prepay as Autumn directs, she confirms your time, and you log in — live, private, never recorded. 📹 New clients do light screening first." + gotoBtn("cam", "Cam & Phone menu") + "<br>" + SMS;
+    /* ---- SERVICES: cam & phone (general) ---- */
+    if (has(" cam ", "webcam", "phone session", "phone sex", "video chat", "live show", "cam session", "call her"))
       return "📹 <strong>Live cam</strong>: 15-min Solo Tease $60 · Fetish Show $75 · 30-min Full Solo $110 · Domme Session $130 ⭐ Most Booked · Full Hour $200 · Domme/Fetish Hour $240. <strong>Phone</strong>: from $40 for 10 minutes. Everything prepaid, private, never recorded — and new clients do light screening first." + gotoBtn("cam", "Cam & Phone page") + "<br>" + SMS;
-    if (has("worn", "pant", "stocking", "apparel", "buy her"))
+    /* ---- SERVICES: worn items shipping / discretion ---- */
+    if (has("ship", "shipping", "deliver", "wear time", "how long does she wear", "smell"))
+      return "Worn to order for exactly the wear time you request, vacuum-sealed fresh, and shipped in plain packaging with a discreet return name that tells your postman precisely nothing. 📦 All sales final — full menu and ordering on the page." + gotoBtn("worn", "Worn Items page");
+    /* ---- SERVICES: worn items (general) ---- */
+    if (has("worn", "panties", "panty", "stocking", "apparel", "buy her", "lingerie"))
       return "🛍️ Panties, bras &amp; lingerie, stockings, sleepwear, workout wear, heels — genuinely worn to order for exactly as long as you request, vacuum-sealed fresh and shipped in plain discreet packaging. All sales final." + gotoBtn("worn", "Worn Items page") + "<br>" + SMS;
+    /* ---- SERVICES: a specific fetish from the list ---- */
+    for (var fi = 0; fi < FET_ALIASES.length; fi++){
+      var fa = FET_ALIASES[fi], fhit = false;
+      for (var fj = 0; fj < fa[0].length; fj++){ if (t.indexOf(fa[0][fj]) > -1){ fhit = true; break; } }
+      if (fhit){
+        var fd = fetishDesc(fa[1]);
+        return "Yes — <strong>" + fa[2] + "</strong> is on her menu." + (fd ? " " + fd : "") + " 🔥 Fetish session rates vary, so text her which one has your attention and she'll quote you." + gotoBtn("fetishes", "Full Fetish menu") + "<br>" + SMS;
+      }
+    }
+    /* ---- SERVICES: fetish NOT on the list ---- */
+    if (has("not listed","not on the list","not on the menu","not on your menu","my fetish is","my kink is","custom kink","something not listed"))
+      return "If it's not on the Fetish menu or the BDSM list, don't assume — ask Autumn directly, by text. 📲 She adopts favourites for gentlemen who ask properly. Anything unsafe, or unlisted <em>and</em> unapproved, is a no." + gotoBtn("fetishes", "Fetish menu") + "<br>" + SMS;
+    /* ---- SERVICES: BDSM limits / safe words ---- */
+    if (has("safe word","safeword","limits","hard limit","soft limit","bdsm safe","is it safe","how far does she go"))
+      return "Everything is negotiated before anything starts — limits, safe words, all of it. ⛓️ Safe word gets called, the scene stops, no debate, no sulking. Mistress Autumn's fifty acts and her rules are on the Light BDSM page." + gotoBtn("bdsm", "Light BDSM page");
+    /* ---- SERVICES: BDSM (general) ---- */
     if (has("bdsm", "domme", "mistress", "submissive", "dominat"))
       return "⛓️ Light BDSM with Autumn in charge: fifty FemDom acts on the menu, negotiated like adults, safe words respected. Go see what Mistress Autumn allows." + gotoBtn("bdsm", "Light BDSM page") + "<br>" + SMS;
+    /* ---- SERVICES: Kama Sutra ---- */
     if (has("kama", "position"))
       return "📖 All fifty Kama Sutra positions in five chapters, with Autumn as your guide. Bring stamina, leave shame in the car." + gotoBtn("kama", "Kama Sutra page");
+    /* ---- SERVICES: fetishes (general) ---- */
     if (has("fetish", "kink"))
       return "🔥 Forty-one fetishes, defined A–Z — bondage, foot worship, FinDom, role play and worse (better). Rates vary by session. Go confess to the menu." + gotoBtn("fetishes", "Fetish menu") + "<br>" + SMS;
+    /* ---- SERVICES: custom content ---- */
     if (has("content", "custom", "voice note", "sexting"))
-      return "🎬 Custom photo sets, videos, voice notes and sexting sessions — your scenario, your outfit requests, made for your eyes and your name only. Text or email her the details and she'll quote you." + gotoBtn("content", "Content page") + "<br>" + SMS;
-    if (has("photo", "pic", "gallery", "picture"))
+      return "🎬 Custom photo sets, videos, voice notes and sexting sessions — your scenario, your outfit requests, made for your eyes and your name only, delivered digitally and discreetly. Payment up front; text or email her the details and she'll quote you." + gotoBtn("content", "Content page") + "<br>" + SMS;
+    /* ---- SERVICES: photos/videos of Autumn in chat ---- */
+    if (has("send me a pic","send pics","send a pic","send me a photo","more pics","more photos","see more of her","pics of her","photos of her"))
+      return "Chat is text-only, sweetie — I don't send photos. 📸 The gallery is free to stare at, custom sets live on Content, and the truly filthy stuff hides behind Fans." + gotoBtn("photos", "Photos") + gotoBtn("content", "Content") + gotoBtn("fans", "Fans");
+    /* ---- SERVICES: photos (general) ---- */
+    if (has("photo", "photos", "picture", "gallery", "pics"))
       return "📸 Nine photos, three shows — the Spotlight Cinema, the Endless Reel and the Coverflow Vault. Tap any frame to see it full-size. You're welcome." + gotoBtn("photos", "Photos page");
-    if (has("etiquette", "rule", "cancel", "deposit", "late"))
-      return "🎩 Short version: be polite, be punctual, handle the donation like a gentleman, never haggle, and cancellations inside the window carry a 20% fee. The full handbook is on the Etiquette page — read it <em>before</em> you book, not after." + gotoBtn("etiquette", "Etiquette page");
-    if (has("hour", "available", "when", "open", "located", "location", "address", "city"))
-      return "Autumn books <strong>by appointment</strong> — no walk-in nonsense, and no, I don't hand out addresses. Text her your preferred date and time (and the city you're booking in, that's part of screening) and she'll confirm what's available." + "<br>" + SMS;
-    if (has("term", "privacy", "policy", "legal"))
+    /* ---- LOGISTICS: running late ---- */
+    if (has("running late","i m late","im late","be late","running behind","stuck in traffic","traffic"))
+      return "Then text <strong>her</strong>, right now — not me. 📲 Running late happens; going silent is what gets numbers blocked. If you're very late the session may shrink or need rescheduling — her call, and she makes it kindly when you communicate." + gotoBtn("etiquette", "Etiquette") + "<br>" + SMS;
+    /* ---- LOGISTICS: cancel / reschedule ---- */
+    if (has("cancel","reschedule","can t make it","cant make it","cannot make it","change my booking","move my booking","change my appointment"))
+      return "Life happens — tell Autumn by text as early as you possibly can. 🎩 Fair warning: cancellations and no-shows carry a <strong>20% fee</strong>, and you can't rebook until it's paid. Ghosting silently is how numbers get blocked forever." + gotoBtn("etiquette", "Etiquette") + "<br>" + SMS;
+    /* ---- LOGISTICS: how long to book ---- */
+    if (has("how long should","how long do i","which session should","hour or half","recommend a session","enough time"))
+      return "First time? Book the <strong>full hour</strong> — it's where she does her best work, and it's the Most Booked for a reason. ⏱️ On a budget or a lunch break, the minis exist. Never book shorter than you need and then beg to extend." + gotoBtn("rates", "Rates page");
+    /* ---- BOOKING: returning / regular client ---- */
+    if (has("booked her before","booked before","seen her before","seen autumn before","visited before","returning","i m a regular","im a regular","been before","she knows me"))
+      return "A returning gentleman — she remembers her favourites. 😏 You still text to book like everyone else; if your screening details were deleted since your last visit, she may ask you to re-verify quickly. Loyalty gets rewarded here." + "<br>" + SMS;
+    /* ---- Etiquette (general) ---- */
+    if (has("etiquette", "rule", "dress code", "hygiene", "tip", "how to behave"))
+      return "🎩 Short version: be polite, be punctual, handle the donation like a gentleman at the start, never haggle, shower before you arrive, and cancellations carry a 20% fee. The full handbook is on the Etiquette page — read it <em>before</em> you book, not after." + gotoBtn("etiquette", "Etiquette page");
+    /* ---- MONEY: rates (general) ---- */
+    if (has("rate", "price", "cost", "how much", "donation", "incall", "outcall"))
+      return "💵 <strong>Incall</strong> (you come to her): 10-min BBBJ $100 · 15-min BBBJ $130 ⭐ · 10-min Full Service QV $150 · 15-min QV $170 · Half Hour $190 · Full Hour $240 ⭐ Most Booked.<br><strong>Outcall</strong> (she comes to you): 15-min BBBJ $180 · 10-min QV $200 · 15-min QV $220 · Half Hour $240 · Full Hour $290.<br>Fetish sessions: rates vary. And no haggling — the rates are the rates." + gotoBtn("rates", "Full Rates page") + "<br>" + SMS;
+    /* ---- BOOKING: contact (general) ---- */
+    if (has("book", "appointment", "schedule", "text her", "contact", "number", "email"))
+      return "📲 Booking is gloriously simple: text Autumn, introduce yourself properly — name, age, city you're booking in, what you want, when — pass screening if you're new, and she confirms. No forms in here: I don't collect anybody's details, and don't go offering yours in chat." + gotoBtn("screening", "How screening works") + "<br>" + SMS;
+    /* ---- Terms & privacy ---- */
+    if (has("terms", "privacy", "legal", "policy"))
       return "The fine print lives on <strong>Terms &amp; Privacy</strong> — adults only, time-and-companionship, the works." + gotoBtn("terms", "Terms page");
+    /* ---- SITE HELP: technical problems ---- */
+    if (has("not loading","won t load","wont load","can t open","cant open","site not working","page not working","broken","error","forgot my","technical","site down"))
+      return "Tech gremlins? Try a refresh, or a different browser. 🛠️ Still stuck? Email Autumn at puzzyeatta6969@gmail.com and tell her what broke — she reads those herself." + "<br>" + MAIL;
+    /* ---- SITE HELP: non-English speaker ---- */
+    if (has("hola","buenas","no hablo","no entiendo","español","espanol","bonjour","merci","je ne","je suis","hallo","sprechen sie","ciao","grazie","obrigado"," ich "))
+      return "Simple English is fine here, sweetie — I keep it short. 😊 Prices: Rates 💵 · Pictures: Photos 📸 · Booking: text Autumn 📲. Tap a page and I'll take you." + navGrid();
+    /* ---- SITE HELP: just browsing ---- */
+    if (has("just browsing","just looking","looking around","browsing","no questions","just checking"))
+      return "Browsing is foreplay, sweetie. 😏 Take the tour — fourteen pages, and the Photos are free. When browsing turns into wanting, you know where the text button is." + navGrid();
+    /* ---- Who is Jewel ---- */
     if (has("who are you", "jewel", "your name"))
       return "💎 Jewel. Redhead, resting bitch face, and the voice of reason at Autumn's front desk. I do info and directions; Autumn does everything else — by text." + "<br>" + SMS;
-    if (has("thank", "thanks", "thx"))
+    /* ---- Thanks ---- */
+    if (has("thank", "thx", "appreciated"))
       return "You're welcome. Gold star for manners — Autumn notices that sort of thing. Now go book something." + "<br>" + SMS;
-    if (has("hello", "hey", "hi", "hiya", "morning", "afternoon", "evening"))
+    /* ---- Bye ---- */
+    if (has("goodbye", "see you later", "see ya", " bye ", "that s all", "thats all"))
+      return "Run along, then. 💅 You know where to find her — and me. Try not to dream about either of us.";
+    /* ---- Hello ---- */
+    if (has("hello", " hey ", " hi ", "hiya", "good morning", "good afternoon", "good evening"))
       return "Hey yourself. 💎 Jewel, booking girl. Rates, screening, services, directions — pick one, or tap Site Menu and I'll walk you there.";
-    return "💅 I do rates, screening, services and directions around this site — not riddles. Try a topic below, or take the tour:" + navGrid();
+    /* ---- FALLBACK: gibberish / keyboard mash ---- */
+    var clean = t.replace(/\s+/g, " ").replace(/^\s+|\s+$/g, "");
+    var lettersOnly = clean.replace(/[^a-z]/g, "");
+    if (clean.length < 3 || (lettersOnly.length >= 5 && !/[aeiouy]/.test(lettersOnly)) || clean.indexOf("asdf") > -1 || clean.indexOf("qwerty") > -1 || clean.indexOf("zxcv") > -1){
+      state.gibber++;
+      return state.gibber > 1
+        ? "Still typing with your elbows, I see. 😏 The chips below work with one tap — even for you."
+        : "…Was that English? 😏 Fingers slipped, or you're testing me. Either way: type a real question — rates, screening, services — or tap a chip below.";
+    }
+    /* ---- FALLBACK: graceful, rotating, never a dead end ---- */
+    state.fallbacks++;
+    var fb = state.fallbacks % 3;
+    if (fb === 1) return "💅 I do rates, screening, services and directions around this site — not riddles. Try a topic below, or take the tour:" + navGrid();
+    if (fb === 2) return "That one's above my pay grade, sweetie. 💎 What I <em>can</em> do: rates, screening, services, Fans, directions. Pick one:" + navGrid();
+    return "Hmm. Not ringing any bells — and I ring a lot of bells. 😏 Ask me about booking, massage, cam or worn items… or take the tour:" + navGrid();
   }
   function respond(raw){
-    var typing = addBot('<span class="j-typing">Jewel is typing…</span>');
+    stopSpeech();
+    var typing = addBot('<span class="j-typing">Jewel is typing…</span>', true);
     setTimeout(function(){
       if (typing.parentNode) typing.parentNode.removeChild(typing);
-      addBot(replyFor(raw));
+      var t = " " + raw.toLowerCase().replace(/[^a-z0-9 ]+/g, " ") + " ";
+      var html;
+      if (state.ended && t.indexOf("menu") === -1){
+        html = ENDED_LINE;
+      } else if (state.lastText && t === state.lastText && t.replace(/\s/g, "").length > 2){
+        html = "🔁 Asked and answered, sweetie — scroll up, it's right there with my full attention on it. Short on patience? The chips below hit the highlights, or tap <strong>Site Menu</strong> and I'll walk you somewhere new." + navGrid();
+      } else {
+        state.multi = false;
+        var topics = ["rate","price","screen","massage","fan","member","cam","phone","worn","book","cancel","fetish","bdsm","kama","content","photo","deposit","hotel","couple"];
+        var tc = 0;
+        for (var i = 0; i < topics.length; i++) if (t.indexOf(topics[i]) > -1) tc++;
+        state.multi = tc >= 3;
+        html = replyFor(raw);
+        if (state.multi && !state.ended) html += "<br><em>One thing at a time, handsome — I answered the big one. Tap a chip for the rest.</em>";
+      }
+      state.lastText = t;
+      addBot(html);
     }, 550);
   }
   form.addEventListener("submit", function(e){
@@ -3258,7 +3700,8 @@ document.addEventListener("keydown", function(e){ if (e.key==="Escape") closeLb(
     var label = c.getAttribute("data-chip");
     addUser(label);
     if (label === "Site menu"){
-      var typing = addBot('<span class="j-typing">Jewel is typing…</span>');
+      stopSpeech();
+      var typing = addBot('<span class="j-typing">Jewel is typing…</span>', true);
       setTimeout(function(){
         if (typing.parentNode) typing.parentNode.removeChild(typing);
         addBot("Fourteen pages. Try to keep up." + navGrid());

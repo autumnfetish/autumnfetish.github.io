@@ -1133,8 +1133,14 @@
   #jewelChat{position:fixed;top:clamp(118px,21vh,204px);right:14px;left:auto;bottom:auto;z-index:300;width:min(94vw,368px);display:none;background:transparent;padding:0;}
   #jewelChat.open{display:block;}
   @media (prefers-reduced-motion: no-preference){
-    #jewelChat.open{animation:jewelIn .26s ease;}
-    @keyframes jewelIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+    /* Pixar entrance: she POPS in — stretched on the rise, squash on landing, elastic settle */
+    #jewelChat.open{animation:jewelIn .62s cubic-bezier(.34,1.4,.64,1) both;transform-origin:50% 100%;}
+    @keyframes jewelIn{0%{opacity:0;transform:translateY(30px) scale(.7,1.07);}42%{opacity:1;transform:translateY(-5px) scale(1.035,.965);}63%{transform:translateY(2px) scale(.962,1.045);}81%{transform:translateY(-1px) scale(1.013,.993);}100%{opacity:1;transform:translateY(0) scale(1,1);}}
+    /* Minimize reverses it: quick squash-out */
+    #jewelChat.closing{animation:jewelOut .24s ease-in both;transform-origin:50% 100%;}
+    @keyframes jewelOut{0%{opacity:1;transform:scale(1,1) translateY(0);}38%{opacity:1;transform:scale(1.09,.8) translateY(5px);}100%{opacity:0;transform:scale(.5,.88) translateY(18px);}}
+    #jewelMini.show{animation:jewelMiniIn .48s cubic-bezier(.34,1.8,.64,1) both;}
+    @keyframes jewelMiniIn{0%{transform:scale(.35);opacity:0;}60%{transform:scale(1.12);opacity:1;}100%{transform:scale(1);opacity:1;}}
   }
   @media(max-width:560px){#jewelChat{top:clamp(96px,17vh,150px);right:8px;width:min(94vw,344px);}}
   /* NO backdrop at all — Jewel is a CUT-OUT pasted onto the page itself.
@@ -1157,7 +1163,7 @@
   .jewel-heard:not(:empty)::before{content:"🎧 hearing: ";}
   .j-sronly{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0 0 0 0)!important;clip-path:inset(50%)!important;white-space:nowrap!important;border:0!important;opacity:0!important;pointer-events:none!important;color:transparent!important;}
   /* standing figure */
-  .jewel-figwrap{display:block;flex:0 0 auto;width:min(184px,52vw);height:min(330px,44vh);min-height:248px;margin-top:8px;filter:drop-shadow(2px 3px 3px rgba(0,0,0,.5)) drop-shadow(-2px 3px 3px rgba(0,0,0,.4)) drop-shadow(0 14px 16px rgba(0,0,0,.55));transition:filter .3s;}
+  .jewel-figwrap{display:block;flex:0 0 auto;width:min(184px,52vw);height:min(330px,44vh);min-height:248px;margin-top:8px;filter:drop-shadow(2px 3px 3px rgba(0,0,0,.5)) drop-shadow(-2px 3px 3px rgba(0,0,0,.4)) drop-shadow(0 14px 16px rgba(0,0,0,.55));transition:filter .3s,transform .16s ease;transform-origin:50% 100%;}
   .jewel-figwrap svg{width:100%;height:100%;display:block;overflow:visible;background:transparent;}
   body.j-listening .jewel-figwrap{filter:drop-shadow(2px 3px 3px rgba(0,0,0,.5)) drop-shadow(0 14px 16px rgba(0,0,0,.55)) drop-shadow(0 0 22px rgba(0,229,255,.75)) drop-shadow(0 0 44px rgba(255,46,154,.35));}
   @keyframes jewelListenPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.018)}}
@@ -1172,12 +1178,12 @@
   @keyframes jewelHairSway{0%,100%{transform:rotate(.6deg);}50%{transform:rotate(-.9deg);}}
   .jf-head{transform-box:fill-box;transform-origin:50% 85%;animation:jewelHeadTilt 7s ease-in-out infinite;}
   @keyframes jewelHeadTilt{0%,100%{transform:rotate(-1.2deg);}50%{transform:rotate(1.4deg);}}
-  body.j-talking .jf-head{animation:jewelNod 1.15s ease-in-out infinite;}
+  body.j-talking .jf-head{animation:jewelNod var(--nod-dur,1.15s) ease-in-out infinite;}
   @keyframes jewelNod{0%,100%{transform:rotate(0deg) translateY(0);}30%{transform:rotate(1.6deg) translateY(1.6px);}60%{transform:rotate(-.8deg) translateY(.4px);}}
   body.j-listening .jf-head{animation:jewelLean 2.8s ease-in-out infinite;}
   @keyframes jewelLean{0%,100%{transform:rotate(2.4deg) translateY(2.5px) scale(1.012);}50%{transform:rotate(2.9deg) translateY(3.4px) scale(1.017);}}
   .jf-eyes{transform-box:fill-box;transform-origin:center;animation:jewelBlink 5.6s ease-in-out infinite;}
-  @keyframes jewelBlink{0%,90%{transform:scaleY(1);}92.5%{transform:scaleY(.08);}95%{transform:scaleY(1);}96.8%{transform:scaleY(.15);}98.5%,100%{transform:scaleY(1);}}
+  @keyframes jewelBlink{0%,90%{transform:scale(1,1);}92.5%{transform:scale(1.07,.07);}95%{transform:scale(.99,1);}96.8%{transform:scale(1.04,.16);}98.5%,100%{transform:scale(1,1);}}
   .jf-pupils{transform-box:fill-box;transform-origin:center;animation:jewelGlance 8s ease-in-out infinite;}
   @keyframes jewelGlance{0%,38%{transform:translate(0,0);}46%,62%{transform:translate(1.8px,.4px);}70%,100%{transform:translate(0,0);}}
   body.j-listening .jf-pupils{animation:jewelGlanceListen 5s ease-in-out infinite;}
@@ -1185,17 +1191,57 @@
   body.j-talking .jf-pupils{animation:jewelGlanceTalk 4.4s ease-in-out infinite;}
   @keyframes jewelGlanceTalk{0%,55%{transform:translate(0,0);}65%,80%{transform:translate(-1.7px,.3px);}90%,100%{transform:translate(0,0);}}
   .jf-mouth{transform-box:fill-box;transform-origin:center;}
-  body.j-talking .jf-mouth{animation:jewelTalk2 .38s ease-in-out infinite;}
-  @keyframes jewelTalk2{0%{transform:scaleY(.35) scaleX(.92);}25%{transform:scaleY(1.25) scaleX(1.05);}50%{transform:scaleY(.6) scaleX(.97);}75%{transform:scaleY(1.45) scaleX(1.1);}100%{transform:scaleY(.4) scaleX(.94);}}
+  /* Mouth SHAPES, not one flap: JS cycles smirk / open oval / wide / small-o in sync with speech */
+  .jf-mouth .jm{display:none;}
+  .jf-mouth .jm-smirk{display:block;}
+  body.j-m-open .jf-mouth .jm,body.j-m-wide .jf-mouth .jm,body.j-m-o .jf-mouth .jm{display:none;}
+  body.j-m-open .jf-mouth .jm-open{display:block;}
+  body.j-m-wide .jf-mouth .jm-wide{display:block;}
+  body.j-m-o .jf-mouth .jm-o{display:block;}
+  body.j-talking .jf-mouth{animation:jewelTalk2 .34s cubic-bezier(.36,1.4,.64,1) infinite;}
+  @keyframes jewelTalk2{0%,100%{transform:scale(.96,.9);}45%{transform:scale(1.05,1.1);}70%{transform:scale(.99,.96);}}
   /* greeting attitude: eye-roll + dismissive head toss, once per open */
   body.j-greeting .jf-pupils{animation:jewelEyeRoll 1.5s ease .45s 1 both;}
   @keyframes jewelEyeRoll{0%{transform:translate(0,0);}35%{transform:translate(0,-2.6px);}60%{transform:translate(1.6px,-2px);}100%{transform:translate(0,0);}}
   body.j-greeting .jf-head{animation:jewelToss 1.5s ease .45s 1 both;}
   @keyframes jewelToss{0%{transform:rotate(0deg);}30%{transform:rotate(-4.5deg) translateY(-1px);}55%{transform:rotate(2.4deg);}100%{transform:rotate(0deg);}}
+  /* --- Pixar pass: follow-through, gestures, facial performance (spring easings, nothing linear) --- */
+  .jf-hairfront{transform-box:fill-box;transform-origin:50% 0%;animation:jewelHairLag 5.2s ease-in-out .22s infinite;}
+  @keyframes jewelHairLag{0%,100%{transform:rotate(-.9deg) translateX(-.5px);}50%{transform:rotate(1.15deg) translateX(.6px);}}
+  body.j-hairtoss .jf-hairfront{animation:jewelHairToss .95s cubic-bezier(.34,1.5,.64,1) 1 both;}
+  @keyframes jewelHairToss{0%{transform:rotate(0deg);}30%{transform:rotate(-6.5deg) translateX(-2px);}58%{transform:rotate(2.8deg) translateX(1px);}78%{transform:rotate(-1.1deg);}100%{transform:rotate(0deg);}}
+  .jf-hem{transform-box:fill-box;transform-origin:50% 0%;animation:jewelHem 6.5s ease-in-out .3s infinite;}
+  @keyframes jewelHem{0%,100%{transform:rotate(-.7deg) translateX(-.6px);}50%{transform:rotate(.8deg) translateX(.8px);}}
+  .jf-arm{transform-box:fill-box;transform-origin:80% 6%;}
+  body.j-gesture-a .jf-arm{animation:jewelGestA .95s cubic-bezier(.34,1.56,.64,1) 1 both;}
+  @keyframes jewelGestA{0%,100%{transform:rotate(0deg) translateY(0);}35%{transform:rotate(-17deg) translateY(-5px);}62%{transform:rotate(-13deg) translateY(-3px);}}
+  body.j-gesture-b .jf-arm{animation:jewelGestB .8s cubic-bezier(.34,1.56,.64,1) 1 both;}
+  @keyframes jewelGestB{0%,100%{transform:rotate(0deg);}40%{transform:rotate(11deg) translateX(2.5px);}70%{transform:rotate(8deg) translateX(1.5px);}}
+  body.j-gesture-c .jf-arm{animation:jewelGestC 1.05s ease-in-out 1 both;}
+  @keyframes jewelGestC{0%,100%{transform:rotate(0deg);}25%{transform:rotate(-9deg);}50%{transform:rotate(6deg);}75%{transform:rotate(-7deg);}}
+  .jf-brows{transform-box:fill-box;transform-origin:50% 50%;transition:transform .3s cubic-bezier(.34,1.56,.64,1);}
+  body.j-browraise .jf-brows{transform:translateY(-3.2px) rotate(-2.4deg);}
+  body.j-unimpressed .jf-brows{transform:translateY(1.8px);}
+  body.j-eyeroll .jf-brows{transform:translateY(-1.6px) rotate(1.8deg);}
+  .jf-lids{transform-box:fill-box;transition:transform .38s ease;}
+  body.j-unimpressed .jf-lids{transform:translateY(2.7px);}
+  body.j-talking .jf-breath{animation:jewelTalkBounce .62s cubic-bezier(.36,1.4,.64,1) infinite;}
+  @keyframes jewelTalkBounce{0%,100%{transform:scale(1,1) translateY(0);}38%{transform:scale(1.006,.992) translateY(.7px);}68%{transform:scale(.998,1.009) translateY(-.8px);}}
+  body.j-anticipate .jf-head{animation:jewelAnticipate .24s ease-out 1 both;}
+  @keyframes jewelAnticipate{0%{transform:rotate(0deg) translateY(0) scale(1);}100%{transform:rotate(2.6deg) translateY(3px) scale(.982);}}
+  body.j-anticipate .jewel-figwrap{transform:scale(1.014,.986);}
+  body.j-eyeroll .jf-pupils{animation:jewelEyeRoll 1.15s cubic-bezier(.34,1.4,.64,1) 1 both;}
+  .jf-pupils{transition:transform .3s ease;}
+  body.j-glanceaway .jf-pupils{animation:none;transform:translate(2.7px,-.5px);}
   @media (prefers-reduced-motion: reduce){
     .jf-sway,.jf-groundshadow,.jf-breath,.jf-hairback,.jf-head,.jf-eyes,.jf-pupils,.jf-mouth,
+    .jf-hairfront,.jf-hem,.jf-arm,body.j-talking .jf-breath,body.j-anticipate .jf-head,
+    body.j-gesture-a .jf-arm,body.j-gesture-b .jf-arm,body.j-gesture-c .jf-arm,
+    body.j-hairtoss .jf-hairfront,body.j-eyeroll .jf-pupils,#jewelChat.closing,#jewelMini.show,
     body.j-talking .jf-head,body.j-listening .jf-head,body.j-talking .jf-pupils,body.j-listening .jf-pupils,
     body.j-talking .jf-mouth,body.j-greeting .jf-pupils,body.j-greeting .jf-head,.jewel-mic.live{animation:none!important;}
+    .jf-brows,.jf-lids,.jf-pupils{transition:none!important;}
+    body.j-glanceaway .jf-pupils,body.j-browraise .jf-brows,body.j-unimpressed .jf-brows,body.j-unimpressed .jf-lids,body.j-anticipate .jewel-figwrap{transform:none!important;}
   }
   /* spoken-line link styling kept for strip/speak helpers (no transcript is rendered) */
   .j-msg a.jewel-sms{color:var(--neon-gold,#ffd34d);}
@@ -1280,16 +1326,18 @@
       <path d="M118 176c-6 42-8 86-5 128" stroke="#fff" stroke-width="9" opacity=".09" fill="none" stroke-linecap="round"/>
       <path d="M188 182c5 40 7 82 4 122" stroke="url(#jRim)" stroke-width="3.4" fill="none" stroke-linecap="round" opacity=".38" filter="url(#jSoft2)"/>
       <ellipse cx="150" cy="238" rx="34" ry="52" fill="#fff" opacity=".05" filter="url(#jSoft)"/>
-      <path d="M96 312c34 10 74 10 108 0l-2 16c-34 9-70 9-104 0Z" fill="#000" opacity=".45"/>
+      <path class="jf-hem" d="M96 312c34 10 74 10 108 0l-2 16c-34 9-70 9-104 0Z" fill="#000" opacity=".45"/>
       <path d="M112 168c10 12 24 18 38 18s28-6 38-18l-8-22c-18 8-42 8-60 0Z" fill="url(#jSkin)"/>
       <ellipse cx="136" cy="172" rx="12" ry="7" fill="url(#jSkinHi)" opacity=".55" filter="url(#jSoft)"/>
       <!-- left arm: hand on hip -->
       <path d="M106 176c-20 8-32 26-34 50-1 14 6 24 18 28l26 8c8 2 14-2 15-9 1-6-3-11-10-13l-20-6c-6-2-9-7-8-14 2-16 10-28 22-36Z" fill="url(#jSkin)"/>
       <path d="M100 190c-12 8-19 20-21 34" stroke="url(#jSkinHi)" stroke-width="5" fill="none" stroke-linecap="round" opacity=".5" filter="url(#jSoft2)"/>
       <ellipse cx="124" cy="252" rx="11" ry="8" fill="url(#jSkin)" transform="rotate(-18 124 252)"/>
-      <!-- right arm: relaxed down -->
+      <!-- right arm: relaxed down, free hand — gestures on emphasis (Pixar pass) -->
+      <g class="jf-arm">
       <path d="M194 176c18 10 27 30 28 56 1 20-3 38-10 52-3 6-10 7-14 3-4-3-4-9-2-15 6-14 8-28 7-42-1-18-7-32-18-42Z" fill="url(#jSkin)"/>
       <ellipse cx="202" cy="290" rx="8" ry="11" fill="url(#jSkin)"/>
+      </g>
       <!-- neck & rendered head: big, glossy, FURIOUS -->
       <rect x="135" y="124" width="30" height="46" rx="12" fill="url(#jSkin)"/>
       <path d="M135 138c10 7 20 7 30 0v16c-10 6-20 6-30 0Z" fill="#c9854f" opacity=".55"/>
@@ -1304,13 +1352,15 @@
       <path d="M98 98C90 30 118 6 150 6s60 24 52 92c-6-34-16-54-30-66 4 9 5 17 4 25-10-16-36-19-50-5-8 8-16 22-28 46Z" fill="url(#jHair)"/>
       <path d="M110 32c13-13 30-19 46-18" fill="none" stroke="#ffc07a" stroke-width="9" stroke-linecap="round" opacity=".8" filter="url(#jSoft2)"/>
       <path d="M110 32c13-13 30-19 46-18" fill="none" stroke="#ffe3bb" stroke-width="3" stroke-linecap="round" opacity=".9"/>
+      <g class="jf-hairfront">
       <path d="M98 92c-4 38-2 76 6 112l14-8c-8-34-10-68-8-102Z" fill="url(#jHair)"/>
       <path d="M202 92c4 38 2 76-6 112l-14-8c8-34 10-68 8-102Z" fill="url(#jHair)"/>
       <path d="M103 110c-1 26 1 50 6 72" stroke="#ffb066" stroke-width="4" fill="none" stroke-linecap="round" opacity=".65" filter="url(#jSoft2)"/>
       <path d="M197 110c1 26-1 50-6 72" stroke="url(#jRim)" stroke-width="3" fill="none" stroke-linecap="round" opacity=".5" filter="url(#jSoft2)"/>
+      </g>
       <circle cx="97" cy="112" r="4.5" fill="#ffd34d"/><circle cx="203" cy="112" r="4.5" fill="#ffd34d"/>
       <!-- RBF, mandatory: furrowed brows angled DOWN at the viewer -->
-      <path d="M107 66l39 16M193 66l-39 16" fill="none" stroke="#4a1e0d" stroke-width="5.5" stroke-linecap="round"/>
+      <g class="jf-brows"><path d="M107 66l39 16M193 66l-39 16" fill="none" stroke="#4a1e0d" stroke-width="5.5" stroke-linecap="round"/></g>
       <path d="M145 84q-1 6 1 10M155 84q1 6-1 10" fill="none" stroke="#b97a48" stroke-width="1.8" stroke-linecap="round" opacity=".7"/>
       <g class="jf-eyes">
         <ellipse cx="128" cy="97" rx="11" ry="5.6" fill="#fff"/><ellipse cx="172" cy="97" rx="11" ry="5.6" fill="#fff"/>
@@ -1318,16 +1368,32 @@
           <circle cx="128" cy="95.3" r="4.6" fill="#2f1608"/><circle cx="172" cy="95.3" r="4.6" fill="#2f1608"/>
           <circle cx="129.6" cy="93.8" r="1.5" fill="#fff"/><circle cx="173.6" cy="93.8" r="1.5" fill="#fff"/>
         </g>
-        <path d="M116 92.5h24v5.5q-12 4.5-24 0Z" fill="url(#jSkin)"/><path d="M160 92.5h24v5.5q-12 4.5-24 0Z" fill="url(#jSkin)"/>
+        <path class="jf-lids" d="M116 92.5h24v5.5q-12 4.5-24 0Z" fill="url(#jSkin)"/><path class="jf-lids" d="M160 92.5h24v5.5q-12 4.5-24 0Z" fill="url(#jSkin)"/>
         <path d="M116.5 94.5Q128 89 139.5 94.5M160.5 94.5Q172 89 183.5 94.5" fill="none" stroke="#241105" stroke-width="3.4" stroke-linecap="round"/>
         <path d="M119 102.5Q128 105 137 102.5M163 102.5Q172 105 181 102.5" fill="none" stroke="#b97a48" stroke-width="1.6" stroke-linecap="round" opacity=".55"/>
       </g>
       <path d="M150 101l-3.2 11q3.2 2.4 6.4 0" fill="none" stroke="#c9854f" stroke-width="2" stroke-linecap="round"/>
       <!-- tight unimpressed mouth: flat line, opens a slit when she talks -->
       <g class="jf-mouth">
-        <ellipse cx="150" cy="131.5" rx="7" ry="2.4" fill="#5c1220" opacity=".85"/>
-        <path d="M135 129Q150 126.6 165 129" fill="none" stroke="#7e2233" stroke-width="3.6" stroke-linecap="round"/>
-        <path d="M143 135Q150 136.4 157 135" fill="none" stroke="#c96a5e" stroke-width="1.6" stroke-linecap="round" opacity=".6"/>
+        <g class="jm jm-smirk">
+          <ellipse cx="150" cy="131.5" rx="7" ry="2.4" fill="#5c1220" opacity=".85"/>
+          <path d="M135 129Q150 126.6 165 129" fill="none" stroke="#7e2233" stroke-width="3.6" stroke-linecap="round"/>
+          <path d="M143 135Q150 136.4 157 135" fill="none" stroke="#c96a5e" stroke-width="1.6" stroke-linecap="round" opacity=".6"/>
+        </g>
+        <g class="jm jm-open">
+          <ellipse cx="150" cy="132.5" rx="6.2" ry="5.4" fill="#5c1220"/>
+          <path d="M145.5 135.8Q150 138.4 154.5 135.8Q150 137 145.5 135.8Z" fill="#c96a5e"/>
+          <path d="M141 127.5Q150 125.4 159 127.5" fill="none" stroke="#7e2233" stroke-width="2.6" stroke-linecap="round"/>
+        </g>
+        <g class="jm jm-wide">
+          <ellipse cx="150" cy="131" rx="9.5" ry="3.4" fill="#5c1220"/>
+          <path d="M141.5 129.6h17l-1.2 2h-14.6Z" fill="#fdf6ec" opacity=".92"/>
+          <path d="M139 128.6Q150 126.4 161 128.6" fill="none" stroke="#7e2233" stroke-width="2.6" stroke-linecap="round"/>
+        </g>
+        <g class="jm jm-o">
+          <circle cx="150" cy="131.5" r="3.6" fill="#5c1220"/>
+          <path d="M141 127.8Q150 126 159 127.8" fill="none" stroke="#7e2233" stroke-width="2.4" stroke-linecap="round"/>
+        </g>
       </g>
       </g>
       <!-- necklace -->
@@ -3341,7 +3407,7 @@ document.addEventListener("keydown", function(e){ if (e.key==="Escape") closeLb(
   var cloudText = document.getElementById("jewelCloudText");
   var cloudFull = document.getElementById("jewelCloudFull");
   var muteBtn = document.getElementById("jewelMute");
-  var speakQ = [], speaking = false, speechToken = 0, revealTimer = null;
+  var speakQ = [], speaking = false, speechToken = 0, revealTimer = null, anticipating = false, visTimer = null;
   function pickVoice(){
     if (!synth) return null;
     try{
@@ -3423,7 +3489,21 @@ document.addEventListener("keydown", function(e){ if (e.key==="Escape") closeLb(
     if (cur) out.push(cur);
     return out.length ? out : [txt];
   }
+  /* Pixar anticipation: before every line she dips/cocks her head a beat —
+     the line never starts cold. stopSpeech bumps speechToken, which aborts a pending dip. */
   function pumpSpeech(){
+    if (speaking || anticipating || !speakQ.length) return;
+    anticipating = true;
+    var tk = speechToken;
+    document.body.classList.add("j-anticipate");
+    setTimeout(function(){
+      if (tk !== speechToken) return;
+      anticipating = false;
+      document.body.classList.remove("j-anticipate");
+      pumpSpeechNow();
+    }, 210);
+  }
+  function pumpSpeechNow(){
     if (speaking || !speakQ.length) return;
     var txt = speakQ.shift();
     state.lastSpoken = txt;
@@ -3432,6 +3512,8 @@ document.addEventListener("keydown", function(e){ if (e.key==="Escape") closeLb(
     setCloud(txt);
     if (box) box.classList.add("talking");
     document.body.classList.add("j-talking");
+    performCue(txt);
+    startVisemes();
     var fired = false;
     function finish(){
       if (fired || token !== speechToken) return;
@@ -3440,6 +3522,7 @@ document.addEventListener("keydown", function(e){ if (e.key==="Escape") closeLb(
       if (!speakQ.length){
         if (box) box.classList.remove("talking");
         document.body.classList.remove("j-talking");
+        stopVisemes();
       }
       setTimeout(pumpSpeech, 120);
     }
@@ -3483,9 +3566,55 @@ document.addEventListener("keydown", function(e){ if (e.key==="Escape") closeLb(
       setTimeout(finish, Math.min(2800, 600 + txt.length * 26));
     }
   }
+  /* ---- Pixar performance engine: no two lines are performed alike ---- */
+  function startVisemes(){
+    if (visTimer) return;
+    var shapes = ["j-m-open","j-m-wide","j-m-o","","j-m-open","j-m-o","j-m-wide",""];
+    (function tick(){
+      document.body.classList.remove("j-m-open","j-m-wide","j-m-o");
+      var s = shapes[Math.floor(Math.random() * shapes.length)];
+      if (s) document.body.classList.add(s);
+      visTimer = setTimeout(tick, 90 + Math.random() * 115);
+    })();
+  }
+  function stopVisemes(){
+    if (visTimer){ clearTimeout(visTimer); visTimer = null; }
+    document.body.classList.remove("j-m-open","j-m-wide","j-m-o");
+  }
+  function performCue(txt){
+    var b = document.body;
+    /* nod tempo varies per line */
+    b.style.setProperty("--nod-dur", (0.92 + Math.random() * 0.55).toFixed(2) + "s");
+    /* brows: cocked raise for attitude, about half her lines */
+    if (Math.random() < 0.5){
+      b.classList.add("j-browraise");
+      setTimeout(function(){ b.classList.remove("j-browraise"); }, 650 + Math.random() * 550);
+    }
+    /* free-hand gesture on emphasis: palm-up shrug / point / little wave */
+    var g = Math.random(), gc = g < 0.3 ? "j-gesture-a" : (g < 0.55 ? "j-gesture-b" : (g < 0.74 ? "j-gesture-c" : ""));
+    if (gc){
+      b.classList.add(gc);
+      setTimeout(function(){ b.classList.remove(gc); }, 1000 + Math.random() * 450);
+    }
+    /* eye-roll for the sassy lines (and sometimes just because) */
+    if (/absolutely not|small talk|ugh|seriously|obviously|whatever|reading menus/i.test(txt) || Math.random() < 0.13){
+      b.classList.add("j-eyeroll");
+      setTimeout(function(){ b.classList.remove("j-eyeroll"); }, 1250);
+    }
+  }
+  /* Idle life: droopy-lid unimpressed beats, glances away, the occasional hair toss */
+  setInterval(function(){
+    if (!panel.classList.contains("open") || speaking || anticipating || state.convoActive) return;
+    var r = Math.random(), b = document.body;
+    if (r < 0.34){ b.classList.add("j-unimpressed"); setTimeout(function(){ b.classList.remove("j-unimpressed"); }, 1500 + Math.random() * 800); }
+    else if (r < 0.62){ b.classList.add("j-glanceaway"); setTimeout(function(){ b.classList.remove("j-glanceaway"); }, 1200 + Math.random() * 700); }
+    else if (r < 0.8){ b.classList.add("j-hairtoss"); setTimeout(function(){ b.classList.remove("j-hairtoss"); }, 1000); }
+  }, 7000);
   function stopSpeech(){
     speechToken++;
-    speakQ.length = 0; speaking = false;
+    speakQ.length = 0; speaking = false; anticipating = false;
+    document.body.classList.remove("j-anticipate");
+    stopVisemes();
     if (synth){ try{ synth.cancel(); }catch(e){} }
     finishReveal();
     if (box) box.classList.remove("talking");
@@ -3528,8 +3657,11 @@ document.addEventListener("keydown", function(e){ if (e.key==="Escape") closeLb(
     addBot("💎 Well, look who wandered in. I'm <strong>Jewel</strong> — fiery redhead, resting bitch face, and Autumn's booking girl. I handle rates, screening and directions around this site. Small talk? Absolutely not.");
     addBot("Fourteen pages of her, and I'll walk you to any of them. Tap Talk and ask me out loud — or just say where to go: 'Take me to Photos.' If reading menus is hard for you.");
   }
+  var closeTimer = null;
   function openChat(){
     if (window.__narrState && window.__narrState.playing && typeof stopNarration === "function"){ try{ stopNarration(); }catch(e){} }
+    if (closeTimer){ clearTimeout(closeTimer); closeTimer = null; }
+    panel.classList.remove("closing");
     if (miniBtn) miniBtn.classList.remove("show");
     panel.classList.add("open");
     if (!state.greeted){
@@ -3548,9 +3680,26 @@ document.addEventListener("keydown", function(e){ if (e.key==="Escape") closeLb(
     if (synth){ try{ synth.cancel(); }catch(e){} }
     endConvo(true);
     stopSpeech();
-    document.body.classList.remove("j-greeting");
-    panel.classList.remove("open");
-    if (miniBtn && state.greeted) miniBtn.classList.add("show");
+    document.body.classList.remove("j-greeting","j-browraise","j-eyeroll","j-unimpressed","j-glanceaway","j-hairtoss","j-gesture-a","j-gesture-b","j-gesture-c");
+    if (!panel.classList.contains("open")){
+      if (miniBtn && state.greeted) miniBtn.classList.add("show");
+      return;
+    }
+    /* Speech/control response is instant (above); the figure squashes out over ~235ms */
+    var rm = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (rm){
+      panel.classList.remove("open");
+      if (miniBtn && state.greeted) miniBtn.classList.add("show");
+      return;
+    }
+    panel.classList.add("closing");
+    if (closeTimer) clearTimeout(closeTimer);
+    closeTimer = setTimeout(function(){
+      closeTimer = null;
+      panel.classList.remove("open");
+      panel.classList.remove("closing");
+      if (miniBtn && state.greeted) miniBtn.classList.add("show");
+    }, 235);
   }
   function goToPage(id){
     closeChat();
